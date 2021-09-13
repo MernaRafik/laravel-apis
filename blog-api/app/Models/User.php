@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Article;
+use App\Models\Comment;
 
 class User extends Authenticatable
 {
@@ -30,15 +32,13 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function user_article(){
+        return $this->hasMany(Article::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }
